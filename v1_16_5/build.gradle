@@ -7,7 +7,7 @@ tasks.withType(JavaCompile) {
     options.javaModuleVersion = '1.8'
 }
 group 'github.com/darksoldier1404'
-version = '1.0.0.8'
+version = '1.0.0.18'
 configurations {
     jar.archiveName = 'DP-ItemEditor-_' + name + '-' + version + '.jar'
 }
@@ -32,7 +32,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
-    compileOnly 'com.darksoldier1404.duc:DP-UniversalCore:1.0.3.123:1.16.5'
+    compileOnly 'com.darksoldier1404.duc:DP-UniversalCore:1.16.5-SNAPSHOT'
 }
 
 test {

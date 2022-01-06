@@ -1,7 +1,7 @@
 package com.darksoldier1404.die.commands;
 
-import com.darksoldier1404.die.functions.DIEFunction;
 import com.darksoldier1404.die.ItemEditor;
+import com.darksoldier1404.die.functions.DIEFunction;
 import com.darksoldier1404.duc.utils.NBT;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -17,20 +17,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-/*
-/die name <Display Name> - 아이템의 이름을 설정합니다.
-/die lore add <lore> - 로어를 추가합니다.
-/die lore del <line> - 해당 라인의 로어를 삭제합니다.
-/die lore set <line> <lore> - 해당 라인의 로어를 설정합니다.
-/die type <Material> - 아이템 타입을 변경합니다. (타입만 변경되며 다른 정보는 유지됩니다.)
-/die enc add <enchant> <level> - 해당 인첸트를 추가합니다.
-/die enc del <enchant> - 해당 인첸트를 삭제합니다.
-/die nbt set <key> <value> - 해당 키의 NBT를 설정합니다.
-/die nbt del <key> - 해당 키의 NBT를 삭제합니다.
-/die nbt list - NBT의 모든 키, 값을 출력합니다.
- */
-
-
 @SuppressWarnings("all")
 public class DIECommand implements CommandExecutor, TabCompleter {
     private final String prefix = ItemEditor.prefix;
@@ -42,7 +28,7 @@ public class DIECommand implements CommandExecutor, TabCompleter {
             return false;
         }
         Player p = (Player) sender;
-        if(!p.isOp()) {
+        if (!p.isOp()) {
             p.sendMessage(prefix + "권한이 없습니다.");
             return false;
         }
@@ -56,6 +42,7 @@ public class DIECommand implements CommandExecutor, TabCompleter {
             p.sendMessage(prefix + "/die enc del <enchant>");
             p.sendMessage(prefix + "/die nbt del <key>");
             p.sendMessage(prefix + "/die nbt set <key> <value>");
+            p.sendMessage(prefix + "/die nbt get <key>");
             p.sendMessage(prefix + "/die nbt list");
             return false;
         }
@@ -185,19 +172,115 @@ public class DIECommand implements CommandExecutor, TabCompleter {
             }
             if (args[1].equals("set")) {
                 if (args.length == 2) {
-                    p.sendMessage(prefix + "NBT 키를 입력해주세요.");
+                    p.sendMessage(prefix + "NBT 타입을 입력해주세요.");
                     return false;
                 }
                 if (args.length == 3) {
+                    p.sendMessage(prefix + "NBT 키를 입력해주세요.");
+                    return false;
+                }
+                if (args.length == 4) {
                     p.sendMessage(prefix + "NBT 값을 입력해주세요.");
                     return false;
                 }
-                p.getInventory().setItemInMainHand(NBT.setStringTag(item, args[2], args[3]));
+                if (args[2].equalsIgnoreCase("int")) {
+                    try {
+                        p.getInventory().setItemInMainHand(NBT.setIntTag(item, args[3], Integer.parseInt(args[4])));
+                    } catch (Exception e) {
+                        p.sendMessage(prefix + "잘못된 NBT 값입니다.");
+                        return false;
+                    }
+                    return false;
+                }
+                if (args[2].equalsIgnoreCase("string")) {
+                    try {
+                        p.getInventory().setItemInMainHand(NBT.setStringTag(item, args[3], args[4]));
+                    } catch (Exception e) {
+                        p.sendMessage(prefix + "잘못된 NBT 값입니다.");
+                        return false;
+                    }
+                    return false;
+                }
+                if (args[2].equalsIgnoreCase("double")) {
+                    try {
+                        p.getInventory().setItemInMainHand(NBT.setDoubleTag(item, args[3], Double.parseDouble(args[4])));
+                    } catch (Exception e) {
+                        p.sendMessage(prefix + "잘못된 NBT 값입니다.");
+                    }
+                    return false;
+                }
+                if (args[2].equalsIgnoreCase("float")) {
+                    try {
+                        p.getInventory().setItemInMainHand(NBT.setFloatTag(item, args[3], Float.parseFloat(args[4])));
+                    } catch (Exception e) {
+                        p.sendMessage(prefix + "잘못된 NBT 값입니다.");
+                    }
+                    return false;
+                }
+                if (args[2].equalsIgnoreCase("long")) {
+                    try {
+                        p.getInventory().setItemInMainHand(NBT.setLongTag(item, args[3], Long.parseLong(args[4])));
+                    } catch (Exception e) {
+                        p.sendMessage(prefix + "잘못된 NBT 값입니다.");
+                    }
+                    return false;
+                }
+                if (args[2].equalsIgnoreCase("byte")) {
+                    try {
+                        p.getInventory().setItemInMainHand(NBT.setByteTag(item, args[3], Byte.parseByte(args[4])));
+                    } catch (Exception e) {
+                        p.sendMessage(prefix + "잘못된 NBT 값입니다.");
+                    }
+                    return false;
+                }
+                if (args[2].equalsIgnoreCase("short")) {
+                    try {
+                        p.getInventory().setItemInMainHand(NBT.setShortTag(item, args[3], Short.parseShort(args[4])));
+                    } catch (Exception e) {
+                        p.sendMessage(prefix + "잘못된 NBT 값입니다.");
+                    }
+                    return false;
+                }
+                return false;
+            }
+            if (args[1].equals("get")) {
+                if (args.length == 2) {
+                    p.sendMessage(prefix + "NBT 키를 입력해주세요.");
+                    return false;
+                }
+                if (args[2].equalsIgnoreCase("int")) {
+                    p.sendMessage(prefix + NBT.getIntegerTag(item, args[3]));
+                    return false;
+                }
+                if (args[2].equalsIgnoreCase("string")) {
+                    p.sendMessage(prefix + NBT.getStringTag(item, args[3]));
+                    return false;
+                }
+                if (args[2].equalsIgnoreCase("double")) {
+                    p.sendMessage(prefix + NBT.getDoubleTag(item, args[3]));
+                    return false;
+                }
+                if (args[2].equalsIgnoreCase("float")) {
+                    p.sendMessage(prefix + NBT.getFloatTag(item, args[3]));
+                    return false;
+                }
+                if (args[2].equalsIgnoreCase("long")) {
+                    p.sendMessage(prefix + NBT.getLongTag(item, args[3]));
+                    return false;
+                }
+                if (args[2].equalsIgnoreCase("byte")) {
+                    p.sendMessage(prefix + NBT.getByteTag(item, args[3]));
+                    return false;
+                }
+                if (args[2].equalsIgnoreCase("short")) {
+                    p.sendMessage(prefix + NBT.getShortTag(item, args[3]));
+                    return false;
+                }
                 return false;
             }
             if (args[1].equals("del")) {
                 if (args.length == 2) {
-                    p.sendMessage(prefix + "please enter the nbt key");
+                    p.sendMessage(prefix + "NBT 키를 입력해주세요.");
                     return false;
                 }
                 p.getInventory().setItemInMainHand(NBT.removeTag(item, args[2]));
@@ -206,7 +289,7 @@ public class DIECommand implements CommandExecutor, TabCompleter {
             if (args[1].equals("list")) {
                 String s = "";
                 Map<String, String> tags = NBT.getAllStringTag(item);
-                if (tags.size() == 0) {
+                if (tags == null) {
                     p.sendMessage(prefix + "no nbt found.");
                     return false;
                 }
@@ -241,7 +324,7 @@ public class DIECommand implements CommandExecutor, TabCompleter {
             if (args.length == 2) {
                 return Arrays.asList("add", "del");
             }
-            if(args.length == 3) {
+            if (args.length == 3) {
                 return ItemEditor.enchants;
             }
         }
@@ -265,7 +348,10 @@ public class DIECommand implements CommandExecutor, TabCompleter {
         }
         if (args[0].equals("nbt")) {
             if (args.length == 2) {
-                return Arrays.asList("set", "del", "list");
+                return Arrays.asList("set", "get", "del", "list");
+            }
+            if (args.length == 3) {
+                return Arrays.asList("STRING", "INT", "FLOAT", "DOUBLE", "LONG", "BYTE", "SHORT");
             }
         }
         return new ArrayList<>();
