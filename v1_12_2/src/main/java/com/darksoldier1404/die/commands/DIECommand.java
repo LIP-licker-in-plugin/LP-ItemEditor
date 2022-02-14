@@ -2,7 +2,7 @@ package com.darksoldier1404.die.commands;
 
 import com.darksoldier1404.die.ItemEditor;
 import com.darksoldier1404.die.functions.DIEFunction;
-import com.darksoldier1404.duc.utils.NBT;
+import com.darksoldier1404.dppc.utils.NBT;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -283,7 +283,7 @@ public class DIECommand implements CommandExecutor, TabCompleter {
                     p.sendMessage(prefix + "NBT 키를 입력해주세요.");
                     return false;
                 }
-                p.getInventory().setItemInMainHand(NBT.removeTag(item, args[2]));
+                p.getInventory().setItemInMainHand(NBT.c(item, args[2]));
                 return false;
             }
             if (args[1].equals("list")) {

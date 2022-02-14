@@ -7,21 +7,12 @@ tasks.withType(JavaCompile) {
     options.javaModuleVersion = '1.8'
 }
 group 'github.com/darksoldier1404'
-version = '1.0.0.18'
+version = '1.0.0.19'
 configurations {
     jar.archiveName = 'DP-ItemEditor-_' + name + '-' + version + '.jar'
 }
 repositories {
     mavenCentral()
-    maven {
-        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
-        content {
-            includeGroup 'org.bukkit'
-            includeGroup 'org.spigotmc'
-        }
-    }
-    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
-    maven { url = 'https://oss.sonatype.org/content/repositories/central' }
     maven {
         url "http://dpnw.site:8081/repository/maven-public/"
         allowInsecureProtocol = true
@@ -31,8 +22,9 @@ dependencies {
     implementation 'org.jetbrains:annotations:20.1.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    compileOnly 'org.spigotmc:spigot-api:1.13.2-R0.1-SNAPSHOT'
-    compileOnly 'com.darksoldier1404.duc:DP-UniversalCore:1.13.2-SNAPSHOT'
+    compileOnly 'org.bukkit.craftbukkit:craftbukkit:R0.1:1.13'
+    compileOnly 'org.spigotmc:spigot-api:R0.1:1.13'
+    compileOnly 'com.darksoldier1404.dppc:DPP-Core:1.13.2-SNAPSHOT'
 }
 
 test {
