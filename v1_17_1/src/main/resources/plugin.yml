@@ -1,9 +1,9 @@
 name: DP-ItemEditor
-version: 1.0.0.18
+version: 1.0.0.19
 main: com.darksoldier1404.die.ItemEditor
 api-version: 1.17
 authors: [ DEAD_POOLIO_ ]
 depend:
-  - DP-UniversalCore
+  - DPP-Core
 commands:
   die:
