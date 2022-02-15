@@ -9,13 +9,17 @@ tasks.withType(JavaCompile) {
 }
 
 group 'github.com/darksoldier1404'
-version = '1.0.0.19'
+version = '1.0.0.20'
 
 task deleteMyFile(type: Delete) {
     delete "C:\\Minecraft Servers\\1.18 Play Ground\\plugins\\DP-ItemEditor-" + version + ".jar"
 }
 configurations {
     jar.archiveName = 'DP-ItemEditor-_v1_18-' + version + '.jar'
+}
+build {
+    sourceCompatibility = 17
+    targetCompatibility = 17
 }
 task DS_BUILD {
     doFirst {
@@ -60,9 +64,6 @@ repositories {
         url "http://dpnw.site:8081/repository/maven-public/"
         allowInsecureProtocol = true
     }
-}
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 }
 dependencies {
     implementation 'org.jetbrains:annotations:20.1.0'
