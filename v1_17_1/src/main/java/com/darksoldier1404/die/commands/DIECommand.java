@@ -30,7 +30,7 @@ public class DIECommand implements CommandExecutor, TabCompleter {
             return false;
         }
         Player p = (Player) sender;
-        if (!p.isOp()) {
+        if (!p.hasPermission("die.admin")) {
             p.sendMessage(prefix + lang.get("permission_required"));
             return false;
         }
