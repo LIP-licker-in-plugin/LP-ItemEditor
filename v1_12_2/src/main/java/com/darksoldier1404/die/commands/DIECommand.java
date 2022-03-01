@@ -2,6 +2,7 @@ package com.darksoldier1404.die.commands;
 
 import com.darksoldier1404.die.ItemEditor;
 import com.darksoldier1404.die.functions.DIEFunction;
+import com.darksoldier1404.dppc.lang.DLang;
 import com.darksoldier1404.dppc.utils.NBT;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -20,16 +21,17 @@ import java.util.*;
 @SuppressWarnings("all")
 public class DIECommand implements CommandExecutor, TabCompleter {
     private final String prefix = ItemEditor.prefix;
+    private final DLang lang = ItemEditor.lang;
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(prefix + "게임내에서만 사용할 수 있습니다.");
+            sender.sendMessage(prefix + lang.get("cmd_msg_cant_use_in_console"));
             return false;
         }
         Player p = (Player) sender;
         if (!p.isOp()) {
-            p.sendMessage(prefix + "권한이 없습니다.");
+            p.sendMessage(prefix + lang.get("permission_required"));
             return false;
         }
         if (args.length == 0) {
@@ -47,14 +49,14 @@ public class DIECommand implements CommandExecutor, TabCompleter {
             return false;
         }
         if (p.getInventory().getItemInMainHand().getType() == Material.AIR) {
-            p.sendMessage(prefix + "편집할 아이템을 손에 들고 있어야 합니다.");
+            p.sendMessage(prefix + lang.get("cmd_msg_you_must_hold_item"));
             return false;
         }
         ItemStack item = p.getInventory().getItemInMainHand();
         ItemMeta im = item.getItemMeta();
         if (args[0].equals("name")) {
             if (args.length == 1) {
-                p.sendMessage(prefix + "아이템의 이름을 입력해주세요.");
+                p.sendMessage(prefix + lang.get("cmd_msg_name_required"));
                 return false;
             }
             im.setDisplayName(DIEFunction.getColoredText(args, 1));
@@ -63,7 +65,7 @@ public class DIECommand implements CommandExecutor, TabCompleter {
         }
         if (args[0].equals("lore")) {
             if (args.length == 1) {
-                p.sendMessage(prefix + "로어 옵션을 선택해주세요.");
+                p.sendMessage(prefix + lang.get("cmd_msg_option_required"));
                 return false;
             }
             if (args[1].equals("add")) {
@@ -80,11 +82,11 @@ public class DIECommand implements CommandExecutor, TabCompleter {
             }
             if (args[1].equals("set")) {
                 if (args.length == 2) {
-                    p.sendMessage(prefix + "로어의 번호를 입력해주세요.");
+                    p.sendMessage(prefix + lang.get("cmd_msg_lore_index_required"));
                     return false;
                 }
                 if (args.length == 3) {
-                    p.sendMessage(prefix + "로어를 입력해주세요.");
+                    p.sendMessage(prefix + lang.get("cmd_msg_lore_text_required"));
                     return false;
                 }
                 List<String> lore = im.getLore();
@@ -95,11 +97,11 @@ public class DIECommand implements CommandExecutor, TabCompleter {
             }
             if (args[1].equals("del")) {
                 if (args.length == 2) {
-                    p.sendMessage(prefix + "삭제할 로어의 인덱스를 입력해주세요.");
+                    p.sendMessage(prefix + lang.get("cmd_msg_lore_index_required"));
                     return false;
                 }
                 if (!im.hasLore()) {
-                    p.sendMessage(prefix + "로어가 없습니다.");
+                    p.sendMessage(prefix + lang.get("cmd_msg_lore_not_exist"));
                     return false;
                 }
                 try {
@@ -109,7 +111,7 @@ public class DIECommand implements CommandExecutor, TabCompleter {
                     im.setLore(lore);
                     item.setItemMeta(im);
                 } catch (Exception e) {
-                    p.sendMessage(prefix + "잘못된 인덱스입니다.");
+                    p.sendMessage(prefix + lang.get("cmd_msg_lore_index_not_valid"));
                     return false;
                 }
                 return false;
@@ -117,16 +119,16 @@ public class DIECommand implements CommandExecutor, TabCompleter {
         }
         if (args[0].equals("enc")) {
             if (args.length == 1) {
-                p.sendMessage(prefix + "옵션을 선택해주세요.");
+                p.sendMessage(prefix + lang.get("cmd_msg_option_required"));
                 return false;
             }
             if (args[1].equals("add")) {
                 if (args.length == 2) {
-                    p.sendMessage(prefix + "추가할 인첸트를 입력해주세요.");
+                    p.sendMessage(prefix + lang.get("cmd_msg_enchant_required"));
                     return false;
                 }
                 if (args.length == 3) {
-                    p.sendMessage(prefix + "추가할 인첸트의 레벨을 입력해주세요.");
+                    p.sendMessage(prefix + lang.get("cmd_msg_enchant_level_required"));
                     return false;
                 }
                 try {
@@ -134,13 +136,13 @@ public class DIECommand implements CommandExecutor, TabCompleter {
                     item.setItemMeta(im);
                     return false;
                 } catch (Exception e) {
-                    p.sendMessage(prefix + "잘못된 인첸트입니다.");
+                    p.sendMessage(prefix + lang.get("cmd_msg_enchant_not_valid"));
                     return false;
                 }
             }
             if (args[1].equals("del")) {
                 if (args.length == 2) {
-                    p.sendMessage(prefix + "삭제할 인첸트를 입력해주세요.");
+                    p.sendMessage(prefix + lang.get("cmd_msg_enchant_required"));
                     return false;
                 }
                 try {
@@ -148,46 +150,46 @@ public class DIECommand implements CommandExecutor, TabCompleter {
                     item.setItemMeta(im);
                     return false;
                 } catch (Exception e) {
-                    p.sendMessage(prefix + "잘못된 인첸트입니다.");
+                    p.sendMessage(prefix + lang.get("cmd_msg_enchant_not_valid"));
                 }
             }
         }
         if (args[0].equals("type")) {
             if (args.length == 1) {
-                p.sendMessage(prefix + "아이템의 종류를 입력해주세요.");
+                p.sendMessage(prefix + lang.get("cmd_msg_item_type_required"));
                 return false;
             }
             try {
                 Material m = Material.getMaterial(args[1]);
                 item.setType(m);
             } catch (Exception e) {
-                p.sendMessage(prefix + "잘못된 종류입니다.");
+                p.sendMessage(prefix + lang.get("cmd_msg_item_type_not_valid"));
                 return false;
             }
         }
         if (args[0].equals("nbt")) {
             if (args.length == 1) {
-                p.sendMessage(prefix + "NBT 옵션을 선택해주세요.");
+                p.sendMessage(prefix + lang.get("cmd_msg_nbt_option_required"));
                 return false;
             }
             if (args[1].equals("set")) {
                 if (args.length == 2) {
-                    p.sendMessage(prefix + "NBT 타입을 입력해주세요.");
+                    p.sendMessage(prefix + lang.get("cmd_msg_nbt_type_required"));
                     return false;
                 }
                 if (args.length == 3) {
-                    p.sendMessage(prefix + "NBT 키를 입력해주세요.");
+                    p.sendMessage(prefix + lang.get("cmd_msg_nbt_key_required"));
                     return false;
                 }
                 if (args.length == 4) {
-                    p.sendMessage(prefix + "NBT 값을 입력해주세요.");
+                    p.sendMessage(prefix + lang.get("cmd_msg_nbt_value_required"));
                     return false;
                 }
                 if (args[2].equalsIgnoreCase("int")) {
                     try {
                         p.getInventory().setItemInMainHand(NBT.setIntTag(item, args[3], Integer.parseInt(args[4])));
                     } catch (Exception e) {
-                        p.sendMessage(prefix + "잘못된 NBT 값입니다.");
+                        p.sendMessage(prefix + lang.get("cmd_msg_nbt_not_valid"));
                         return false;
                     }
                     return false;
@@ -196,7 +198,7 @@ public class DIECommand implements CommandExecutor, TabCompleter {
                     try {
                         p.getInventory().setItemInMainHand(NBT.setStringTag(item, args[3], args[4]));
                     } catch (Exception e) {
-                        p.sendMessage(prefix + "잘못된 NBT 값입니다.");
+                        p.sendMessage(prefix + lang.get("cmd_msg_nbt_not_valid"));
                         return false;
                     }
                     return false;
@@ -205,7 +207,7 @@ public class DIECommand implements CommandExecutor, TabCompleter {
                     try {
                         p.getInventory().setItemInMainHand(NBT.setDoubleTag(item, args[3], Double.parseDouble(args[4])));
                     } catch (Exception e) {
-                        p.sendMessage(prefix + "잘못된 NBT 값입니다.");
+                        p.sendMessage(prefix + lang.get("cmd_msg_nbt_not_valid"));
                     }
                     return false;
                 }
@@ -213,7 +215,7 @@ public class DIECommand implements CommandExecutor, TabCompleter {
                     try {
                         p.getInventory().setItemInMainHand(NBT.setFloatTag(item, args[3], Float.parseFloat(args[4])));
                     } catch (Exception e) {
-                        p.sendMessage(prefix + "잘못된 NBT 값입니다.");
+                        p.sendMessage(prefix + lang.get("cmd_msg_nbt_not_valid"));
                     }
                     return false;
                 }
@@ -221,7 +223,7 @@ public class DIECommand implements CommandExecutor, TabCompleter {
                     try {
                         p.getInventory().setItemInMainHand(NBT.setLongTag(item, args[3], Long.parseLong(args[4])));
                     } catch (Exception e) {
-                        p.sendMessage(prefix + "잘못된 NBT 값입니다.");
+                        p.sendMessage(prefix + lang.get("cmd_msg_nbt_not_valid"));
                     }
                     return false;
                 }
@@ -229,7 +231,7 @@ public class DIECommand implements CommandExecutor, TabCompleter {
                     try {
                         p.getInventory().setItemInMainHand(NBT.setByteTag(item, args[3], Byte.parseByte(args[4])));
                     } catch (Exception e) {
-                        p.sendMessage(prefix + "잘못된 NBT 값입니다.");
+                        p.sendMessage(prefix + lang.get("cmd_msg_nbt_not_valid"));
                     }
                     return false;
                 }
@@ -237,7 +239,7 @@ public class DIECommand implements CommandExecutor, TabCompleter {
                     try {
                         p.getInventory().setItemInMainHand(NBT.setShortTag(item, args[3], Short.parseShort(args[4])));
                     } catch (Exception e) {
-                        p.sendMessage(prefix + "잘못된 NBT 값입니다.");
+                        p.sendMessage(prefix + lang.get("cmd_msg_nbt_not_valid"));
                     }
                     return false;
                 }
@@ -245,7 +247,7 @@ public class DIECommand implements CommandExecutor, TabCompleter {
             }
             if (args[1].equals("get")) {
                 if (args.length == 2) {
-                    p.sendMessage(prefix + "NBT 키를 입력해주세요.");
+                    p.sendMessage(prefix + lang.get("cmd_msg_nbt_key_required"));
                     return false;
                 }
                 if (args[2].equalsIgnoreCase("int")) {
@@ -280,17 +282,17 @@ public class DIECommand implements CommandExecutor, TabCompleter {
             }
             if (args[1].equals("del")) {
                 if (args.length == 2) {
-                    p.sendMessage(prefix + "NBT 키를 입력해주세요.");
+                    p.sendMessage(prefix + lang.get("cmd_msg_nbt_key_required"));
                     return false;
                 }
-                p.getInventory().setItemInMainHand(NBT.c(item, args[2]));
+                p.getInventory().setItemInMainHand(NBT.removeTag(item, args[2]));
                 return false;
             }
             if (args[1].equals("list")) {
                 String s = "";
                 Map<String, String> tags = NBT.getAllStringTag(item);
                 if (tags == null) {
-                    p.sendMessage(prefix + "no nbt found.");
+                    p.sendMessage(prefix + lang.get("cmd_msg_nbt_not_exist"));
                     return false;
                 }
                 for (String key : tags.keySet()) {
@@ -308,12 +310,10 @@ public class DIECommand implements CommandExecutor, TabCompleter {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(prefix + "게임내에서만 사용할 수 있습니다.");
             return new ArrayList<>();
         }
         Player p = (Player) sender;
         if (p.getInventory().getItemInMainHand().getType() == Material.AIR) {
-            p.sendMessage(prefix + "아이템을 손에 들고 사용해주세요.");
             return new ArrayList<>();
         }
         ItemStack item = p.getInventory().getItemInMainHand();
