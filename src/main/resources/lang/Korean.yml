@@ -20,6 +20,8 @@ cmd_msg_nbt_key_required: "NBT 키를 입력해주세요."
 cmd_msg_nbt_value_required: "NBT 값을 입력해주세요."
 cmd_msg_nbt_not_valid: "잘못된 NBT입니다."
 cmd_msg_nbt_not_exist: "NBT가 존재하지 않습니다."
+cmd_msg_cmi_required: "CustomModelData를 입력해주세요."
+cmd_msg_cmi_invalid: "CustomModelData는 정수만 입력해주세요."
 
 
 # etc.

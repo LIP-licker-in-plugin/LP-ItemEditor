@@ -9,7 +9,7 @@ tasks.withType(JavaCompile) {
 }
 
 group 'github.com/darksoldier1404'
-version = '1.0.1.24'
+version = '1.0.1.25'
 
 task deleteMyFile(type: Delete) {
     delete "C:\\Minecraft Servers\\1.18 Play Ground\\plugins\\DP-ItemEditor-" + version + ".jar"
@@ -17,6 +17,7 @@ task deleteMyFile(type: Delete) {
 configurations {
     jar.archiveName = 'DP-ItemEditor-_v1_19-' + version + '.jar'
 }
+
 jar {
     destinationDirectory.set(file("$rootDir/jars"))
 }

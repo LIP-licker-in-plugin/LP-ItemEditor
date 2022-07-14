@@ -40,6 +40,7 @@ public class DIECommand implements CommandExecutor, TabCompleter {
             p.sendMessage(prefix + "/die lore del <line>");
             p.sendMessage(prefix + "/die lore set <line> <lore>");
             p.sendMessage(prefix + "/die type <Material>");
+            p.sendMessage(prefix + "/die cmi <CustomModelData>");
             p.sendMessage(prefix + "/die enc add <enchant> <level>");
             p.sendMessage(prefix + "/die enc del <enchant>");
             p.sendMessage(prefix + "/die nbt del <key>");
@@ -60,6 +61,20 @@ public class DIECommand implements CommandExecutor, TabCompleter {
                 return false;
             }
             im.setDisplayName(DIEFunction.getColoredText(args, 1));
+            item.setItemMeta(im);
+            return false;
+        }
+        if (args[0].equals("cmi")) {
+            if (args.length == 1) {
+                p.sendMessage(prefix + lang.get("cmd_msg_cmi_required"));
+                return false;
+            }
+            try{
+                im.setCustomModelData(Integer.parseInt(args[1]));
+            }catch (Exception e) {
+                p.sendMessage(prefix + lang.get("cmd_msg_cmi_invalid"));
+                return false;
+            }
             item.setItemMeta(im);
             return false;
         }
@@ -318,7 +333,7 @@ public class DIECommand implements CommandExecutor, TabCompleter {
         }
         ItemStack item = p.getInventory().getItemInMainHand();
         if (args.length == 1) {
-            return Arrays.asList("name", "lore", "enc", "type", "nbt");
+            return Arrays.asList("name", "lore", "enc", "type", "cmi", "nbt");
         }
         if (args[0].equals("enc")) {
             if (args.length == 2) {
