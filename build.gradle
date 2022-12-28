@@ -9,13 +9,13 @@ tasks.withType(JavaCompile) {
 }
 
 group 'github.com/darksoldier1404'
-version = '1.0.1.25'
+version = '1.0.1.26'
 
 task deleteMyFile(type: Delete) {
     delete "C:\\Minecraft Servers\\1.18 Play Ground\\plugins\\DP-ItemEditor-" + version + ".jar"
 }
 configurations {
-    jar.archiveName = 'DP-ItemEditor-_v1_19-' + version + '.jar'
+    jar.archiveName = 'DP-ItemEditor-_v1_19_3-' + version + '.jar'
 }
 
 jar {
@@ -65,19 +65,26 @@ task DS_BUILD {
 repositories {
     mavenCentral()
     maven {
-        url "http://dpp.dpnw.site:8081/repository/maven-public/"
+        url "http://feather-s.kr:8083/repository/maven-public/"
         allowInsecureProtocol = true
     }
+    maven {
+        url "http://feather-s.kr:8083/repository/dpp-releases/"
+        allowInsecureProtocol = true
+    }
+    maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
+
 }
 dependencies {
     implementation 'org.jetbrains:annotations:20.1.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    compileOnly 'org.bukkit.craftbukkit:craftbukkit:R0.1:1.19'
-    compileOnly 'org.spigotmc:spigot-api:R0.1:1.19'
-    compileOnly 'com.darksoldier1404.dppc:DPP-Core:1.19-SNAPSHOT'
-    compileOnly 'com.mojang.authlib:authlib:3.2.38'
-    compileOnly 'com.mojang.datafixers:datafixerupper:4.0.26'
+    compileOnly 'org.bukkit.craftbukkit:craftbukkit:R0.1:1.19.3'
+    compileOnly 'org.spigotmc:spigot-api:R0.1:1.19.3'
+    compileOnly 'com.darksoldier1404.dppc:DPP-Core:1.19.3-SNAPSHOT'
+    compileOnly 'com.mojang:authlib:3.2.38'
+    compileOnly 'com.mojang:brigadier:1.0.18'
+    compileOnly 'com.mojang:datafixerupper:4.0.26'
 }
 
 test {

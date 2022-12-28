@@ -7,7 +7,7 @@ tasks.withType(JavaCompile) {
     options.javaModuleVersion = '1.8'
 }
 group 'github.com/darksoldier1404'
-version = '1.0.1.25'
+version = '1.0.1.26'
 configurations {
     jar.archiveName = 'DP-ItemEditor-_' + name + '-' + version + '.jar'
 }
@@ -21,7 +21,11 @@ build {
 repositories {
     mavenCentral()
     maven {
-        url "http://dpp.dpnw.site:8081/repository/maven-public/"
+        url "http://feather-s.kr:8083/repository/maven-public/"
+        allowInsecureProtocol = true
+    }
+    maven {
+        url "http://feather-s.kr:8083/repository/dpp-releases/"
         allowInsecureProtocol = true
     }
 }
