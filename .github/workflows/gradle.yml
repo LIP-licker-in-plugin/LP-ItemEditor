@@ -1,4 +1,4 @@
-name: DP-ItemEditor
+name: LP-ItemEditor
 on:
   push:
 jobs:

@@ -1,9 +1,9 @@
-name: DP-ItemEditor
-version: 1.0.1.26
-main: com.darksoldier1404.die.ItemEditor
+name: LP-ItemEditor
+version: 1.0.0.7
+main: com.licker2689.lie.ItemEditor
 api-version: 1.14
-authors: [ DEAD_POOLIO_ ]
+authors: [ licker2689 ]
 depend:
-  - DPP-Core
+  - LP-Core
 commands:
-  die:
+  lie:
