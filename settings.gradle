@@ -1,4 +1,4 @@
-rootProject.name = 'DP-ItemEditor'
+rootProject.name = 'LP-ItemEditor'
 include 'v1_17_1'
 include 'v1_16_5'
 include 'v1_15_2'
